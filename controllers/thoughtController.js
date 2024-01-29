@@ -1,4 +1,4 @@
-const { Thought } = require('../models');
+const { Thought, User } = require('../models');
 
 module.exports = {
     //get all users
@@ -28,8 +28,21 @@ module.exports = {
     //Create new thought
     async createThought(req, res) {
         try {
+            //creates new thought
             const thought = await Thought.create(req.body);
+            //updates user with created thought
+            const user = await User.findOneAndUpdate(
+                { _id: req.body.userId },
+                { $addToSet: { thoughts: thought._id }},
+                { new: true }
+            );
+
+            if (!user) {
+                return res.status(404).json({ message: 'Thought created but no user with given ID can be found.'})
+            }
+
             res.json(thought);
+
         } catch (err) {
             res.status(500).json(err);
         }
@@ -44,9 +57,9 @@ module.exports = {
     // Delete thought by ID
     async deleteThought(req, res) {
         try {
-            const thought = await Thought.findOneAndDelete({ _id: req.params.userId });
+            const thought = await Thought.findOneAndDelete({ _id: req.params.thoughtId });
             if (!thought) {
-                return res.status(404).json({ message: 'No user found with the given ID.' });
+                return res.status(404).json({ message: 'No thought found with the given ID.' });
             }
             res.json(thought);
         } catch (err) {
