@@ -72,7 +72,7 @@ reactionSchema
 .get(function () {
     const time = this.createdAt;
     if (time) {
-        return dayjs(day);
+        return dayjs(time).format('MM/DD/YYYY');
     }
     return;
 });
