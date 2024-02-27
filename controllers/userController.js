@@ -34,6 +34,21 @@ module.exports = {
             res.status(500).json(err);
         }
     },
+    // Update existing user
+    async updateUser(req, res) {
+        try {
+            const user = await User.findByIdAndUpdate(req.params.userId, req.body, { new: true });
+
+            if (!user) {
+                return res.status(404).json({ message: 'No user found with the given ID.' });
+            }
+
+            res.json(user);
+        } catch (err) {
+            console.error(err);
+            res.status(500).json(err);
+        }
+    },
     // Delete user and associated thoughts
     async deleteUser(req, res) {
         try {

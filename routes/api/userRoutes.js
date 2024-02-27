@@ -1,4 +1,5 @@
 const router = require('express').Router();
+const { updateUser } = require('../../controllers/userController');
 
 const {
     getUsers,
@@ -17,7 +18,8 @@ router.route('/')
 
 // /api/users/:userId
 router.route('/:userId')
-    .get(getSingleUser);
+    .get(getSingleUser)
+    .put(updateUser)
 
 // /api/users/:userId/friends/:friendId
 router.route('/:userId/friends/:friendId')

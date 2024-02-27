@@ -50,10 +50,18 @@ module.exports = {
     },
     // Update thought by ID
     async updateThought(req, res) {
-        try {
-        } catch (err) {
-            res.status(500).json(err);
+    try {
+        const thought = await Thought.findByIdAndUpdate(req.params.thoughtId, req.body, { new: true });
+
+        if (!thought) {
+            return res.status(404).json({ message: 'Thought with given ID cannot be found.' });
         }
+
+        res.json(thought);
+    } catch (err) {
+        console.error(err);
+        res.status(500).json(err);
+    }
     },
     // Delete thought by ID
     async deleteThought(req, res) {
