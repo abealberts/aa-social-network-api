@@ -11,7 +11,7 @@ This project is an API that uses Mongoose for a MongoDB connection. This API can
 
 Clone the repo, run `npm i`, then `npm start`. Then, make your API calls in Postman, Insomnia, etc. to test it out. Must have MongoDB installed.
 
-#### [Find the walkthrough video here.]()
+#### [Find the walkthrough video here.](https://github.com/abealberts/aa-social-network-api)
 
 #### Example of API response:
 ![API response example](assets/socialmedia-api-sc.png)
